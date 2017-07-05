@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ninja Class III</title>
+    <script type="text/javascript">
+
+      class Ninja {
+        constructor(name) {
+          this.name = name;
+          this.health = 100;
+          let speed = 3;
+          let strength = 3;
+          this.getStrength = function() { return strength; }
+          this.getSpeed = function() { return speed; }
+
+        }
+
+        sayName() {
+          console.log(`My ninja name is ${this.name}!`);
+        }
+
+        showStats() {
+          console.log(`Name: ${this.name}, Health: ${this.health}, Speed: \
+${this.getSpeed()}, Strength: ${this.getStrength()}`);
+        }
+
+        drinkSake() {
+          this.health += 10;
+          console.log(`${this.name} is drinking sake!`);
+        }
+
+        punch(punched_ninja) {
+          if (!(punched_ninja instanceof Ninja)) {
+            console.log("Punched object is not a Ninja!");
+          }
+          else {
+            console.log(`${punched_ninja.name} was punched by ${this.name} \
+and lost 5 Health!`);
+            punched_ninja.health -= 5;
+          }
+        }
+
+        kick(kicked_ninja) {
+          if (!(kicked_ninja instanceof Ninja)) {
+            console.log("Kicked object is not a Ninja!");
+          }
+          else {
+            let damage = 5*this.getStrength();
+            console.log(`${kicked_ninja.name} was kicked by ${this.name} and lost ${damage} Health!`);
+            kicked_ninja.health -= damage;
+          }
+        }
+
+      }
+
+      let blue_ninja = new Ninja("Goemon");
+      let red_ninja = new Ninja("Bill Gates");
+
+      red_ninja.punch(blue_ninja);
+      blue_ninja.showStats();
+
+      blue_ninja.kick(red_ninja);
+      red_ninja.showStats();
+
+      var green_ninja = {a:5};
+      red_ninja.punch(green_ninja);
+      blue_ninja.kick(green_ninja);
+
+      red_ninja.sayName();
+      red_ninja.drinkSake();
+      red_ninja.showStats();
+
+      class Sensei extends Ninja {
+        constructor(name) {
+          super(name);
+          this.health = 200;
+          let speed = 10;
+          let strength = 10;
+          this.getStrength = function() { return strength; }
+          this.getSpeed = function() { return speed; }
+        }
+
+        speakWisdom() {
+          this.drinkSake()
+          console.log("What one programmer can do in one month, two programmers\
+can do in two months.");
+        }
+
+      }
+
+      let super_sensei = new Sensei("Master Splinter");
+      super_sensei.speakWisdom();
+      super_sensei.showStats();
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
