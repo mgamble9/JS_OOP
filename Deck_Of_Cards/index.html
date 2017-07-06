@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Deck Of Cards</title>
+    <script type="text/javascript">
+
+      class Deck {
+        constructor() {
+        	this.cards = this.default_deck();
+        }
+
+        default_deck() {
+          let names = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+          let suits = ['Hearts','Diamonds','Spades','Clubs'];
+          let cards = [];
+            for (let s = 0; s < suits.length; s++) {
+                for (let n = 0; n < names.length; n++) {
+                    cards.push(names[n] + " of " + suits[s]);
+                }
+            }
+          return cards
+        }
+
+        shuffle() {
+          for (let c = this.cards.length -1; c>0; c--) {
+            let b = Math.floor(Math.random()*(c+1));
+            let a = this.cards[c];
+            this.cards[c] = this.cards[b];
+            this.cards[b] = a;
+          }
+          return this;
+        }
+
+        reset_deck() {
+          this.cards = this.default_deck();
+          return this;
+        }
+
+        deal() {
+          let a = Math.floor(Math.random()*this.cards.length)
+          let card = this.cards[a];
+          this.cards.splice(a,1);
+          return card;
+        }
+      }
+
+      let deck1 = new Deck();
+      // console.log(deck1.cards);
+      console.log(deck1.shuffle().cards);
+      console.log(deck1.reset_deck().cards);
+      console.log(deck1.shuffle().cards);
+
+      class Player {
+        constructor(name) {
+          this.name = name;
+          this.hand = [];
+        }
+
+        draw(deck) {
+          let card_drawn = deck.deal();
+          this.hand.push(card_drawn);
+        }
+
+        // this proto function will take a string e.g., "A of Spades"
+        discard(card) {
+          for (let i = 0; i<this.hand.length; i++) {
+            if (card === this.hand[i]) {
+                this.hand.splice(i,1);
+            }
+          }
+        }
+
+      }
+
+      let player1 = new Player("Rodrigo");
+      console.log(player1.name);
+      player1.draw(deck1);
+      player1.draw(deck1);
+      player1.draw(deck1);
+      player1.draw(deck1);
+      player1.draw(deck1);
+      console.log(player1.hand);
+
+      // run these statements in the console of browser
+      // if we know the string for the card in the players hand
+      // player1.discard("A of Spades");
+      // console.log(player1.hand);
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
